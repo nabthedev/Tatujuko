@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatujuko - The Easy Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            background: var(--light);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            width: 40%;
+            transition: width 1s ease;
+        }
+
+        .writing-showcase {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .writing-showcase img {
+            max-width: 100%;
+            height: auto;
+            border: 3px solid var(--secondary);
+            border-radius: 10px;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .img-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .example {
+            background: var(--light);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .tatujuko-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .translation {
+            color: var(--dark);
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        tr:hover {
+            background: var(--light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .philosophy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .philosophy-card {
+            background: linear-gradient(135deg, var(--secondary), #5e72e4);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .philosophy-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        ul li {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features, .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>Tatujuko</h1>
+                <p class="subtitle">The Easy Language | 簡単な言語</p>
+                <p class="tagline">"Ta tu juko" - Where observation meets connection</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#writing">Writing System</a></li>
+                <li><a href="#grammar">Grammar</a></li>
+                <li><a href="#vocabulary">Vocabulary</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#learn">Learn</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>🌟 Overview</h2>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">Words</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Writing Modes</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">Sounds</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Conjugations</span>
+                </div>
+            </div>
+
+            <p>Tatujuko is a minimalist constructed language featuring a unique <strong>tripartite writing system</strong> inspired by Japanese and Korean scripts. With only 120 functional words and no verb conjugations, it achieves remarkable expressiveness through context and compound meanings.</p>
+
+            <h3>📊 Development Progress</h3>
+            <div class="progress-bar">
+                <div class="progress-fill">40% Complete (120/300 words)</div>
+            </div>
+
+            <h3>✨ Key Features</h3>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Tripartite Writing</h4>
+                    <p>Phonetic alphabet, semantic logograms, and flowing verb script - three modes working in harmony</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📐</div>
+                    <h4>Simple Grammar</h4>
+                    <p>SVO word order with no conjugations or declensions - easy to learn, powerful to use</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🌍</div>
+                    <h4>Minimalist Design</h4>
+                    <p>Inspired by Toki Pona's philosophical approach to language simplification</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔢</div>
+                    <h4>Logical Numbers</h4>
+                    <p>Base-10 system with productive compounds (Iki→Ikimu→Ikichu: 1→10→100)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy">
+            <h2>💭 Philosophy</h2>
+            
+            <p>Tatujuko is built on three core principles that guide both its structure and usage:</p>
+
+            <div class="philosophy-cards">
+                <div class="philosophy-card">
+                    <h4>🔭 Observation</h4>
+                    <p>Describing what is seen, heard, and experienced directly. Language as a tool for witnessing reality.</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>🔗 Connection</h4>
+                    <p>Focus on relationships between concepts, beings, and ideas. Everything exists in relation.</p>
+                </div>
+                <div class="philosophy-card">
+                    <h4>🌊 Flow</h4>
+                    <p>Expressing process and transformation over fixed states. Reality is fluid, language should be too.</p>
+                </div>
+            </div>
+
+            <h3>Design Goals</h3>
+            <ul>
+                <li><strong>Accessibility</strong> - Simple to learn, easy to use for all ages</li>
+                <li><strong>Expressiveness</strong> - Convey complex ideas with minimal vocabulary through context</li>
+                <li><strong>Flexibility</strong> - Words adapt to multiple grammatical roles based on position</li>
+                <li><strong>Visual Beauty</strong> - Writing system as artistic expression</li>
+                <li><strong>Cultural Depth</strong> - Important concepts gain visual weight through logograms</li>
+            </ul>
+        </section>
+
+        <!-- Writing System Section -->
+        <section id="writing">
+            <h2>✍️ Writing System</h2>
+            
+            <p>Tatujuko uses three distinct writing modes, inspired by Japanese (kanji + kana) and Korean (hangul) writing systems. Each mode serves a specific function and creates instant visual grammar recognition.</p>
+
+            <div class="writing-showcase">
+                <h3>Complete Alphabet & Logograms</h3>
+                <img src="/imgs/alphabet.png" alt="Tatujuko Complete Alphabet" onerror="this.innerHTML='<div class=\'img-placeholder\'>📝 Complete Tatujuko Alphabet<br><br>Phonetic Characters + Semantic Logograms<br><br>Place your alphabet image at: /imgs/alphabet.png</div>'">
+                <p style="margin-top: 1rem; color: var(--dark);">The complete writing system showing all phonetic characters and semantic logograms</p>
+            </div>
+
+            <h3>🎭 Three Writing Modes</h3>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🔤</div>
+                    <h4>1. Phonetic Alphabet</h4>
+                    <p><strong>Individual sound characters</strong> written separately. Building blocks of the language. Used by beginners and for uncommon words.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h4>2. Semantic Logograms</h4>
+                    <p><strong>Combined phonetic characters</strong> compressed into artistic unified forms. Used for common/important words. Creates visual beauty and efficiency.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">〰️</div>
+                    <h4>3. Verb Flow Script</h4>
+                    <p><strong>Continuous flowing characters</strong> without breaks. Represents action and movement. Instantly distinguishes verbs from nouns.</p>
+                </div>
+            </div>
+
+            <h3>Visual Grammar</h3>
+            <p>The writing style instantly shows word function:</p>
+            <ul>
+                <li><strong>Nouns</strong> → Logograms or separate phonetic characters (static, defined)</li>
+                <li><strong>Verbs</strong> → Continuous flowing script (dynamic, action)</li>
+                <li><strong>Particles</strong> → Separate phonetic characters (grammatical glue)</li>
+            </ul>
+
+            <h3>Example: The Language's Name</h3>
+            <p>Tatujuko can be written as three logograms: <strong>[Ta][Tu][Juko]</strong> - the language naming itself in its own script!</p>
+        </section>
+
+        <!-- Grammar Section -->
+        <section id="grammar">
+            <h2>📐 Grammar</h2>
+
+            <h3>Word Order: SVO (Subject-Verb-Object)</h3>
+            <p>Tatujuko uses simple, consistent word order:</p>
+
+            <div class="example">
+                <div class="tatujuko-text">Sen aji kotsi</div>
+                <div class="translation">I see water (Subject-Verb-Object)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Li maji malu</div>
+                <div class="translation">You eat flower</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Na jinatsu Tatujuko</div>
+                <div class="translation">They speak Tatujuko</div>
+            </div>
+
+            <h3>Questions: Using Naki</h3>
+            <p>Two positions for the question marker <strong>Naki</strong>:</p>
+
+            <div class="example">
+                <div class="tatujuko-text">Naki li aji?</div>
+                <div class="translation">What do you see? (Naki at start = content question)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Li aji kotsi naki?</div>
+                <div class="translation">Do you see water? (Naki at end = yes/no question)</div>
+            </div>
+
+            <h3>Negation: Using Kusa</h3>
+            <p>Place <strong>Kusa</strong> before the verb to negate:</p>
+
+            <div class="example">
+                <div class="tatujuko-text">Sen kusa aji li</div>
+                <div class="translation">I don't see you (I no-see you)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Kusa, sen aji kotsi</div>
+                <div class="translation">No, I see water (Kusa as response)</div>
+            </div>
+
+            <h3>Possession: Using Tso</h3>
+            <p>Pattern: <strong>Possessed + Tso + Possessor</strong></p>
+
+            <div class="example">
+                <div class="tatujuko-text">Kotsi tso sen</div>
+                <div class="translation">Water of me (my water)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Pola tso li</div>
+                <div class="translation">Tree of you (your tree)</div>
+            </div>
+
+            <h3>No Conjugations! 🎉</h3>
+            <p>Verbs <strong>never change form</strong>. Time is understood from context:</p>
+
+            <div class="example">
+                <div class="tatujuko-text">Sen aji kotsi</div>
+                <div class="translation">I see water / I saw water / I will see water</div>
+            </div>
+
+            <h3>Adjectives Follow Nouns</h3>
+            <div class="example">
+                <div class="tatujuko-text">Kotsi posu</div>
+                <div class="translation">Water hot (hot water)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Pola jona lino</div>
+                <div class="translation">Tree big beautiful (big beautiful tree)</div>
+            </div>
+
+            <h3>Connecting with E (and) & Ik (or)</h3>
+            <div class="example">
+                <div class="tatujuko-text">Sen aji sola e luna</div>
+                <div class="translation">I see sun and moon</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Li otsa mi mano ik peso</div>
+                <div class="translation">You go to land or ocean</div>
+            </div>
+        </section>
+
+        <!-- Vocabulary Section -->
+        <section id="vocabulary">
+            <h2>📚 Vocabulary</h2>
+
+            <p>Tatujuko currently has <strong>120 functional words</strong> organized into clear categories. Words embrace broad semantic ranges, allowing flexible expression through context.</p>
+
+            <h3>Pronouns (6 words)</h3>
+            <table>
+                <tr>
+                    <th>Tatujuko</th>
+                    <th>English</th>
+                    <th>Notes</th>
+                </tr>
+                <tr><td><strong>Sen</strong></td><td>I, me, self, I am</td><td>Flexible: subject/object/copula</td></tr>
+                <tr><td><strong>Li</strong></td><td>you (singular)</td><td>Gender-neutral</td></tr>
+                <tr><td><strong>Na</strong></td><td>they, he, she, it</td><td>Gender-neutral third person</td></tr>
+                <tr><td><strong>Ki</strong></td><td>we, us</td><td>Inclusive "we"</td></tr>
+                <tr><td><strong>Poc</strong></td><td>you (plural)</td><td>Multiple addressees</td></tr>
+                <tr><td><strong>Atso</strong></td><td>they, them (plural)</td><td>Multiple third parties</td></tr>
+            </table>
+
+            <h3>Essential Verbs (13 core + 30 more = 43 total)</h3>
+            <table>
+                <tr>
+                    <th>Tatujuko</th>
+                    <th>English</th>
+                </tr>
+                <tr><td><strong>Aji</strong></td><td>see, look, watch, observe</td></tr>
+                <tr><td><strong>Maji</strong></td><td>consume, eat, drink, absorb</td></tr>
+                <tr><td><strong>Otsa</strong></td><td>go, move, walk, run, travel</td></tr>
+                <tr><td><strong>Jinatsu</strong></td><td>speak, say, tell, talk</td></tr>
+                <tr><td><strong>Kemi</strong></td><td>love, care for, cherish</td></tr>
+                <tr><td><strong>Araju</strong></td><td>know, understand, learn, comprehend</td></tr>
+                <tr><td><strong>Jitsu</strong></td><td>want, need, desire, wish</td></tr>
+                <tr><td><strong>Reti</strong></td><td>feel, sense, perceive</td></tr>
+                <tr><td><strong>Kani</strong></td><td>come, arrive, approach</td></tr>
+                <tr><td><strong>Omika</strong></td><td>make, create, build, construct</td></tr>
+                <tr><td><strong>Wenu</strong></td><td>live, be alive, exist</td></tr>
+                <tr><td><strong>Peli</strong></td><td>grow, increase, develop</td></tr>
+                <tr><td><strong>Neru</strong></td><td>think, consider, ponder</td></tr>
+            </table>
+
+            <h3>Numbers (Base-10 System)</h3>
+            <table>
+                <tr>
+                    <th>Number</th>
+                    <th>Tatujuko</th>
+                    <th>Logic</th>
+                </tr>
+                <tr><td>1</td><td><strong>Iki</strong></td><td>one, single</td></tr>
+                <tr><td>2</td><td><strong>Tsuri</strong></td><td>two, pair</td></tr>
+                <tr><td>3</td><td><strong>Kuri</strong></td><td>three, trio</td></tr>
+                <tr><td>4</td><td><strong>Yatsi</strong></td><td>four, quad</td></tr>
+                <tr><td>5</td><td><strong>Muja</strong></td><td>five, hand</td></tr>
+                <tr><td>10</td><td><strong>Ikimu</strong></td><td>ten (one-unit)</td></tr>
+                <tr><td>11</td><td><strong>Ikimu iki</strong></td><td>ten-one</td></tr>
+                <tr><td>20</td><td><strong>Tsuri ikimu</strong></td><td>two-tens</td></tr>
+                <tr><td>100</td><td><strong>Ikichu</strong></td><td>hundred (one-big-unit)</td></tr>
+            </table>
+
+            <h3>Nature & Elements (37 nouns)</h3>
+            <p><strong>Celestial:</strong> Sola (sun), Luna (moon), Kisu (star), Tenu (sky), Nisu (cloud)</p>
+            <p><strong>Elements:</strong> Kano (fire), Matu (earth), Waje (air), Kotsi (water), Wolu (stone)</p>
+            <p><strong>Plants:</strong> Pola (tree), Kaso (plant), Malu (flower), Senu (seed), Lipa (leaf)</p>
+            <p><strong>Geography:</strong> Wenu (mountain), Kelu (river), Peso (ocean), Lejo (forest)</p>
+            <p><strong>Weather:</strong> Pisu (rain), Noku (snow), Sanu (storm), Reto (lightning)</p>
+
+            <h3>Adjectives/Properties (40 total)</h3>
+            <p><strong>Size:</strong> Jona (big), Keti (small), Palu (long), Neki (short), Tasa (wide)</p>
+            <p><strong>Temperature:</strong> Posu (hot), Kino (cold), Luma (warm), Seku (freezing)</p>
+            <p><strong>Quality:</strong> Kisa (good), Muna (bad), Lino (beautiful), Teka (right), Naso (wrong)</p>
+            <p><strong>Speed:</strong> Raji (fast), Lemo (slow), Noku (still), Sito (moving)</p>
+            <p><strong>Texture:</strong> Mako (hard), Lase (soft), Temu (smooth), Kape (rough), Welo (sharp)</p>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn btn-primary">Download Full Vocabulary List (120 words)</a>
+            </div>
+        </section>
+
+        <!-- Examples Section -->
+        <section id="examples">
+            <h2>💬 Example Sentences</h2>
+
+            <h3>Basic Expressions</h3>
+            <div class="example">
+                <div class="tatujuko-text">Sen aji li</div>
+                <div class="translation">I see you</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Sen kemi li</div>
+                <div class="translation">I love you</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Ner, sen kemi Tatujuko!</div>
+                <div class="translation">Yes, I love Tatujuko!</div>
+            </div>
+
+            <h3>With Adjectives</h3>
+            <div class="example">
+                <div class="tatujuko-text">Sen aji pola jona</div>
+                <div class="translation">I see big tree</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Kotsi posu lino</div>
+                <div class="translation">Water hot beautiful (beautiful hot water)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Sola kisa e luna lino</div>
+                <div class="translation">Sun good and moon beautiful</div>
+            </div>
+
+            <h3>Complex Sentences</h3>
+            <div class="example">
+                <div class="tatujuko-text">Sen aji sola lino imaji li</div>
+                <div class="translation">I see beautiful sun with you</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Ki otsa mi wenu e ki aji tenu lino</div>
+                <div class="translation">We go to mountain and we see beautiful sky</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Li araju Tatujuko e li jinatsu imaji sen naki?</div>
+                <div class="translation">You know Tatujuko and you speak with me, yes?</div>
+            </div>
+
+            <h3>Poetic Expressions</h3>
+            <div class="example">
+                <div class="tatujuko-text">Sen kotsi</div>
+                <div class="translation">I am water / I water (philosophical: I am fluid, I flow)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Kotsi aji sen</div>
+                <div class="translation">Water sees me (the world observes the observer)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Sola e luna tso ta tenu</div>
+                <div class="translation">Sun and moon of the sky (the celestial pair)</div>
+            </div>
+
+            <div class="example">
+                <div class="tatujuko-text">Ki senu tso ta sola</div>
+                <div class="translation">We are seeds of the sun (we are children of light)</div>
+            </div>
+
+            <h3>Sample Conversation</h3>
+            <div style="background: var(--dark); color: white; padding: 1.5rem; border-radius: 8px;">
+                <p><strong>Person A:</strong></p>
+                <div class="example" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <div class="tatujuko-text" style="color: white;">Sen aji sola lino. Li aji naki?</div>
+                    <div class="translation" style="color: rgba(255,255,255,0.8);">I see beautiful sun. Do you see?</div>
+                </div>
+
+                <p><strong>Person B:</strong></p>
+                <div class="example" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <div class="tatujuko-text" style="color: white;">Ner! Sen aji sola e luna. Atso lino.</div>
+                    <div class="translation" style="color: rgba(255,255,255,0.8);">Yes! I see sun and moon. They are beautiful.</div>
+                </div>
+
+                <p><strong>Person A:</strong></p>
+                <div class="example" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <div class="tatujuko-text" style="color: white;">Ki otsa mi wenu naki?</div>
+                    <div class="translation" style="color: rgba(255,255,255,0.8);">Shall we go to mountain?</div>
+                </div>
+
+                <p><strong>Person B:</strong></p>
+                <div class="example" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <div class="tatujuko-text" style="color: white;">Ner, sen jitsu otsa mi wenu. Sen kemi tenu lino.</div>
+                    <div class="translation" style="color: rgba(255,255,255,0.8);">Yes, I want to go to mountain. I love beautiful sky.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Section -->
+        <section id="learn">
+            <h2>📖 Learning Path</h2>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌱</div>
+                    <h4>Beginner (Weeks 1-2)</h4>
+                    <ul style="margin-left: 1rem;">
+                        <li>Master phonetic alphabet (14 sounds)</li>
+                        <li>Learn 6 pronouns</li>
+                        <li>Learn 10 basic verbs</li>
+                        <li>Practice SVO word order</li>
+                        <li>Learn numbers 1-10</li>
+                        <li>Write everything phonetically</li>
+                    </ul>
+                    <p><strong>Goal:</strong> Simple sentences like "Sen aji li" (I see you)</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌿</div>
+                    <h4>Intermediate (Weeks 3-6)</h4>
+                    <ul style="margin-left: 1rem;">
+                        <li>Learn major logograms (Ta, Tu, Juko, Sen, Li, etc.)</li>
+                        <li>Master all 11 particles</li>
+                        <li>Learn 30+ common verbs and nouns</li>
+                        <li>Practice writing verbs in flowing script</li>
+                        <li>Build multi-clause sentences</li>
+                        <li>Learn numbers to 100</li>
+                    </ul>
+                    <p><strong>Goal:</strong> Descriptive sentences with adjectives and particles</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌳</div>
+                    <h4>Advanced (Months 2-3)</h4>
+                    <ul style="margin-left: 1rem;">
+                        <li>Internalize all logograms</li>
+                        <li>Master all 120 core words</li>
+                        <li>Write fluidly mixing all three scripts</li>
+                        <li>Create philosophical expressions</li>
+                        <li>Write original poems and stories</li>
+                        <li>Contribute to vocabulary expansion</li>
+                    </ul>
+                    <p><strong>Goal:</strong> Fluent expression and creative writing</p>
+                </div>
+            </div>
+
+            <h3>📝 Study Resources</h3>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn">Download Beginner's Guide (PDF)</a>
+                <a href="#" class="btn">Flashcard Set (120 words)</a>
+                <a href="#" class="btn">Practice Exercises</a>
+                <a href="#" class="btn btn-primary">Join Discord Community</a>
+            </div>
+
+            <h3>💡 Learning Tips</h3>
+            <ul>
+                <li><strong>Start phonetically:</strong> Don't worry about logograms at first - write everything in phonetic characters</li>
+                <li><strong>Learn in context:</strong> Practice with full sentences, not isolated words</li>
+                <li><strong>Think broadly:</strong> Remember words have flexible meanings - "kotsi" isn't just water, it's liquid/fluid/flow</li>
+                <li><strong>Practice daily:</strong> Even 10 minutes a day builds fluency faster than long weekly sessions</li>
+                <li><strong>Create content:</strong> Write a journal entry, compose a poem, translate a song - make it yours!</li>
+            </ul>
+        </section>
+
+        <!-- Development Section -->
+        <section id="development">
+            <h2>🚀 Development Status</h2>
+
+            <h3>Current Progress (v2.0)</h3>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Status</th>
+                    <th>Completion</th>
+                </tr>
+                <tr>
+                    <td>Phonology</td>
+                    <td>✅ Complete</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>Writing System</td>
+                    <td>✅ Complete</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>Grammar Rules</td>
+                    <td>✅ Complete</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>Number System</td>
+                    <td>✅ Complete</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>Core Vocabulary</td>
+                    <td>🟨 Functional</td>
+                    <td>40% (120/300)</td>
+                </tr>
+            </table>
+
+            <h3>What's Next? (Roadmap to 300 words)</h3>
+            <p>Still needed for complete vocabulary:</p>
+            <ul>
+                <li><strong>Time Concepts</strong> (20 words) - now, before, after, day, night, morning, evening, yesterday, tomorrow</li>
+                <li><strong>Colors</strong> (10 words) - red, blue, green, yellow, white, black, based on natural references</li>
+                <li><strong>Body Parts</strong> (20 words) - head, eye, hand, heart, etc.</li>
+                <li><strong>Common Objects</strong> (30 words) - house, food, tool, clothing, etc.</li>
+                <li><strong>Abstract Concepts</strong> (30 words) - peace, war, friend, enemy, truth, freedom, etc.</li>
+                <li><strong>More Verbs & Adjectives</strong> (70 words) - Additional descriptive and action words</li>
+            </ul>
+
+            <h3>🤝 Contributing</h3>
+            <p>Tatujuko is an open creative project! Ways to contribute:</p>
+            <ul>
+                <li>Suggest new vocabulary following the phonological rules</li>
+                <li>Create logograms for existing words</li>
+                <li>Write example texts (poems, stories, proverbs)</li>
+                <li>Develop learning materials and exercises</li>
+                <li>Translate content into or from Tatujuko</li>
+                <li>Share your creations on social media with #Tatujuko</li>
+            </ul>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="btn btn-primary">View on GitHub</a>
+                <a href="#" class="btn">Submit Vocabulary Ideas</a>
+                <a href="#" class="btn">Report Issues</a>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison">
+            <h2>🔄 Comparison with Other Conlangs</h2>
+
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Tatujuko</th>
+                    <th>Toki Pona</th>
+                    <th>Esperanto</th>
+                </tr>
+                <tr>
+                    <td>Vocabulary Size</td>
+                    <td>120 (→300)</td>
+                    <td>~120</td>
+                    <td>~7,000+</td>
+                </tr>
+                <tr>
+                    <td>Writing System</td>
+                    <td>Tripartite (unique)</td>
+                    <td>Latin alphabet</td>
+                    <td>Latin alphabet</td>
+                </tr>
+                <tr>
+                    <td>Grammar Complexity</td>
+                    <td>Very Simple (SVO, no conjugation)</td>
+                    <td>Very Simple</td>
+                    <td>Moderate</td>
+                </tr>
+                <tr>
+                    <td>Philosophy</td>
+                    <td>Observation, Connection, Flow</td>
+                    <td>Simplicity, Present Moment</td>
+                    <td>International Auxiliary</td>
+                </tr>
+                <tr>
+                    <td>Learning Curve</td>
+                    <td>Easy (with unique script)</td>
+                    <td>Very Easy</td>
+                    <td>Moderate</td>
+                </tr>
+                <tr>
+                    <td>Inspiration</td>
+                    <td>Japanese/Korean writing</td>
+                    <td>Minimalist philosophy</td>
+                    <td>European languages</td>
+                </tr>
+            </table>
+
+            <p><strong>Tatujuko's Unique Strength:</strong> The only minimalist conlang with an integrated artistic writing system that reflects grammatical function through visual style.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <h3>Tatujuko</h3>
+            <p>"Ta tu juko" - The Easy Language</p>
+            <p style="margin-top: 1rem;">Created 2025 | Version 2.0 | 120 functional words</p>
+            
+            <p style="margin-top: 1.5rem; font-weight: bold;">Sen kemi Tatujuko!</p>
+            <p style="font-style: italic;">(I love Tatujuko!)</p>
+
+            <div style="margin-top: 2rem; padding-top: 1rem; border-top: 2px solid var(--light);">
+                <p><strong>Created by:</strong> Human designer (age 13) - Writing system, logograms, core design</p>
+                <p><strong>Vocabulary expansion:</strong> Claude (Anthropic)</p>
+                <p><strong>Inspiration:</strong> Japanese (kanji + kana), Korean (hangul), Toki Pona</p>
+                <p style="margin-top: 1rem;"><strong>License:</strong> Creative Commons BY 4.0</p>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <a href="#" class="btn">GitHub Repository</a>
+                <a href="#" class="btn">Discord Community</a>
+                <a href="#" class="btn">Reddit r/conlangs</a>
+            </div>
+
+            <p style="margin-top: 2rem; color: var(--dark); font-size: 0.9rem;">
+                Made with ❤️ for language lovers and creative minds everywhere
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animate progress bar on load
+        window.addEventListener('load', () => {
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '40%';
+            }
+        });
+
+        // Add fade-in animation for sections as they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
